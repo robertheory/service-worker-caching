@@ -1,28 +1,26 @@
-// Arquivo: service-worker.js
-
 const cacheName = 'my-cache-v1';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(cacheName).then((cache) => {
       return cache.addAll([
-        // Lista de recursos a serem cacheados durante a instalação
+        // resources to be cached during installation
         '/',
+        '/style.css',
         '/index.html',
         '/script.js',
-        // Adicione mais recursos conforme necessário
       ]);
     })
   );
 });
 
 const responseFromCache = async (url) => {
-  console.log('responseFromCache');
+  console.debug('responseFromCache');
   const cache = await caches.open(cacheName);
   const cachedResponse = await cache.match(url);
 
   if (!cachedResponse) {
-    console.log('No cached response');
+    console.debug('No cached response');
     return;
   }
 
@@ -30,7 +28,7 @@ const responseFromCache = async (url) => {
 };
 
 const responseFromNetwork = async (request) => {
-  console.log('responseFromNetwork');
+  console.debug('responseFromNetwork');
   const networkResponse = await fetch(request);
   const cache = await caches.open(cacheName);
   cache.put(request, networkResponse.clone());
@@ -63,7 +61,7 @@ const shouldCacheRequest = (request) => {
 };
 
 self.addEventListener('fetch', (event) => {
-  console.log(
+  console.debug(
     'shouldCacheRequest(event.request)',
     shouldCacheRequest(event.request)
   );
