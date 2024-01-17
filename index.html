@@ -27,15 +27,42 @@
   </head>
   <body>
     <main>
+      <h1>Demo</h1>
+      <label for="user-input">GitHub User</label>
       <input
         id="user-input"
         type="text"
         value="robertheory"
         placeholder="GitHub User"
       />
+
       <button onclick="fetchUser()">Search</button>
 
       <div id="user"></div>
     </main>
+
+    <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
+    <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+
+    <!-- Load the element definition -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"
+    ></script>
+
+    <div class="docs">
+      <div class="docs-header">
+        <h2>Docs & How to Use</h2>
+
+        <a
+          href="https://github.com/robertheory/service-worker-offline-first"
+          target="_blank"
+        >
+          See in GitHub
+        </a>
+      </div>
+
+      <zero-md src="README.md"></zero-md>
+    </div>
   </body>
 </html>
