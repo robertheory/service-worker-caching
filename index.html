@@ -5,53 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Great Site</title>
     <script src="./script.js"></script>
+    <link rel="stylesheet" href="./style.css" />
     <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('/service-worker.js')
-          .then(function (registration) {
-            console.log('Service Worker registrado com sucesso:', registration);
-          })
-          .catch(function (error) {
-            console.error('Erro ao registrar o Service Worker:', error);
-          });
-      }
+      window.addEventListener('load', () => {
+        renderUsers();
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then(function (registration) {
+              console.log(
+                'Service Worker registrado com sucesso:',
+                registration
+              );
+            })
+            .catch(function (error) {
+              console.error('Erro ao registrar o Service Worker:', error);
+            });
+        }
+      });
     </script>
-    <style>
-      body {
-        font-family: sans-serif;
-      }
-      main {
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
-      }
-      select {
-        width: 100%;
-        height: 30px;
-        margin-bottom: 10px;
-      }
-      button {
-        width: 100%;
-        height: 30px;
-      }
-    </style>
   </head>
   <body>
     <main>
-      <select name="countries" id="countries" disabled></select>
-      <button onclick="renderCountries()">Fetch Data</button>
-
-      <img
-        src="data:image/jpeg;base64,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"
-        alt="just a duck"
+      <input
+        id="user-input"
+        type="text"
+        value="robertheory"
+        placeholder="GitHub User"
       />
+      <button onclick="fetchUser()">Search</button>
+
+      <div id="user"></div>
     </main>
   </body>
 </html>
