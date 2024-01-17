@@ -1,36 +1,25 @@
-const formatCountries = (countries) => {
-  const countriesList = countries.map((country) => {
-    return {
-      name: country.name.common,
-      flag: country.flag,
-      population: country.population,
-    };
-  });
-  return countriesList;
-};
+const API_URL = 'https://api.github.com/users/';
 
-const getCountries = async () => {
-  const response = await fetch('https://restcountries.com/v3.1/all');
-  const countries = await response.json();
+const fetchUser = async () => {
+  const userInput = document.querySelector('#user-input').value;
 
-  const formattedCountries = formatCountries(countries);
+  const userContainer = document.querySelector('#user');
 
-  return formattedCountries;
-};
+  try {
+    const response = await fetch(API_URL + userInput);
+    const data = await response.json();
 
-const renderCountries = async () => {
-  const countries = await getCountries();
-
-  const countriesSelect = document.querySelector('#countries');
-
-  countries.forEach((country) => {
-    const option = document.createElement('option');
-    option.value = country.name;
-    option.innerHTML = country.name;
-    countriesSelect.appendChild(option);
-  });
-
-  if (countries.length > 0) {
-    countriesSelect.disabled = false;
+    userContainer.innerHTML = `
+      <img src="${data.avatar_url}" alt="${data.name}" />
+      <h2>${data.name} - @${data.login}</h2>
+      <p>${data.bio}</p>
+    `;
+  } catch (error) {
+    userContainer.innerHTML = `
+      <h2>ERROR</h2>
+      <p>
+        There was an error fetching the user. Please try again later.
+      </p>
+    `;
   }
 };
