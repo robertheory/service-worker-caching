@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="./style.css" />
     <script>
       window.addEventListener('load', () => {
-        renderUsers();
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker
             .register('/service-worker.js')
