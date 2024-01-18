@@ -21,6 +21,9 @@ Follow these steps to observe and test the offline functionality:
 
 1. Open the Website in the Browser:
    Open the index.html file in your preferred web browser.
+   Wait for the Service Worker to register and cache the content, which is indicated by the "Service Worker Registered" message in the log area.
+
+   1.1 You may also refresh after the service worker is registered to ensure that the content is cached.
 
 2. Access Developer Tools:
    Right-click on the webpage and select "Inspect" or press Ctrl + Shift + I (Windows/Linux) or Cmd + Opt + I (Mac) to open the Developer Tools.
