@@ -2,14 +2,16 @@
 
 This project demonstrates the implementation of service workers alongside with caching strategies in order to create enhance the user experince in the web environment.
 In this practical example you'll be presented to concepts such as:
+
 - [Service Workers](https://web.dev/learn/pwa/service-workers)
 - Data Fetching
 - Web Storage / Cache Storage
 - [Caching Stragegies](https://developer.chrome.com/docs/workbox/caching-strategies-overview)
-- Developer Tools 
+- Developer Tools
 
 By default, the application operates in "Cache First Falling Back To Network" mode, but you can change it directly in the `service-worker.js` file.
 ![Cache First Falling Back To Network](https://github.com/robertheory/service-worker-offline-first/assets/41833666/39731181-dab8-43e2-bdc6-c1beefffbb34)
+
 > Image from [Strategies for service worker caching on Chrome for Developers](https://developer.chrome.com/docs/workbox/caching-strategies-overview#cache_first_falling_back_to_network)
 
 ## Testing cache strategies
@@ -65,25 +67,28 @@ Feel free to explore and modify the code to understand how service workers enabl
 
 ## References
 
-Service workers
-https://web.dev/learn/pwa/service-workers
+- Service workers
 
-https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+<https://web.dev/learn/pwa/service-workers>
 
-Strategies for service worker caching 
-https://developer.chrome.com/docs/workbox/caching-strategies-overview
+<https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers>
 
-Related reading 
-https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+- Strategies for service worker caching
 
-https://developer.mozilla.org/en-US/docs/Web/API/Cache
+<https://developer.chrome.com/docs/workbox/caching-strategies-overview>
 
-https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm
+- Related reading
 
-https://developer.chrome.com/docs/workbox/
+<https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage>
 
-https://web.dev/learn/pwa/progressive-web-apps
+<https://developer.mozilla.org/en-US/docs/Web/API/Cache>
 
-https://web.dev/learn/pwa/caching
+<https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm>
 
-https://web.dev/learn/pwa/offline-data
+<https://developer.chrome.com/docs/workbox/>
+
+<https://web.dev/learn/pwa/progressive-web-apps>
+
+<https://web.dev/learn/pwa/caching>
+
+<https://web.dev/learn/pwa/offline-data>
