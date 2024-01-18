@@ -23,3 +23,20 @@ const fetchUser = async () => {
     `;
   }
 };
+
+const logMessage = (message) => {
+  console.debug(message);
+  const logsTextArea = document.querySelector('#logs');
+
+  logsTextArea.value = `${new Date().toISOString()} - ${message}\n${
+    logsTextArea.value
+  }`;
+};
+
+navigator.serviceWorker.addEventListener('message', (event) => {
+  const { type, message } = event.data;
+
+  if (type === 'sw-logs') {
+    logMessage(message);
+  }
+});
