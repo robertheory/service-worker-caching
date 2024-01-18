@@ -1,6 +1,7 @@
 # Service Worker Caching Strategies
 
-This project demonstrates the implementation of service workers alongside with caching strategies in order to create enhance the user experince in the web environment.
+This project demonstrates the implementation of service workers alongside with caching strategies in order to enhance the user experince in the web environment.
+
 In this practical example you'll be presented to concepts such as:
 
 - [Service Workers](https://web.dev/learn/pwa/service-workers)
