@@ -23,3 +23,12 @@ const fetchUser = async () => {
     `;
   }
 };
+
+navigator.serviceWorker.addEventListener('message', (event) => {
+  const { type, message } = event.data;
+
+  if (type === 'sw-fetch') {
+    // Faça algo com o evento recebido, por exemplo:
+    console.log('sw-fetch:', message);
+  }
+});
