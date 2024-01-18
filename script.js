@@ -24,11 +24,19 @@ const fetchUser = async () => {
   }
 };
 
+const logMessage = (message) => {
+  console.debug(message);
+  const logsTextArea = document.querySelector('#logs');
+
+  logsTextArea.value = `${new Date().toISOString()} - ${message}\n${
+    logsTextArea.value
+  }`;
+};
+
 navigator.serviceWorker.addEventListener('message', (event) => {
   const { type, message } = event.data;
 
-  if (type === 'sw-fetch') {
-    // Faça algo com o evento recebido, por exemplo:
-    console.log('sw-fetch:', message);
+  if (type === 'sw-logs') {
+    logMessage(message);
   }
 });

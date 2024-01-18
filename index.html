@@ -25,20 +25,24 @@
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker
             .register('/service-worker.js')
-            .then(function (registration) {
-              console.log(
-                'Service Worker registrado com sucesso:',
-                registration
-              );
+            .then((registration) => {
+              logMessage('Service Worker register successfull');
+              logMessage(JSON.stringify(registration, null, 2));
             })
-            .catch(function (error) {
-              console.error('Erro ao registrar o Service Worker:', error);
+            .catch((error) => {
+              logMessage('Service Worker register error');
+              logMessage(JSON.stringify(error, null, 2));
             });
         }
       });
     </script>
   </head>
   <body>
+    <div class="logs-container">
+      <h3>Logs</h3>
+      <textarea id="logs" disabled></textarea>
+    </div>
+
     <main>
       <h1>Demo</h1>
       <label for="user-input">GitHub User</label>

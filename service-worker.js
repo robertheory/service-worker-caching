@@ -6,7 +6,7 @@ const sendMessageToClient = (message) => {
   self.clients.matchAll().then((clients) => {
     clients.forEach((client) => {
       client.postMessage({
-        type: 'sw-fetch',
+        type: 'sw-logs',
         message,
       });
     });
@@ -15,6 +15,7 @@ const sendMessageToClient = (message) => {
 
 // ** install event and first cached resources **
 self.addEventListener('install', (event) => {
+  sendMessageToClient('sw install event');
   event.waitUntil(
     caches.open(cacheName).then((cache) => {
       return cache.addAll([
@@ -70,30 +71,30 @@ const shouldCacheRequest = (request) => {
 };
 
 const responseFromCache = async (url) => {
-  console.debug('trying responseFromCache');
+  sendMessageToClient(`responseFromCache: ${url}`);
   const cache = await caches.open(cacheName);
   const cachedResponse = await cache.match(url);
 
   if (!cachedResponse) {
-    console.debug('No cached response');
+    sendMessageToClient(`no cached response: ${url}`);
     return;
   }
 
-  console.debug('cached response found');
+  sendMessageToClient(`cached response found: ${url}`);
   return cachedResponse;
 };
 
 const responseFromNetwork = async (request) => {
-  console.debug('trying responseFromNetwork');
+  sendMessageToClient(`responseFromNetwork: ${request.url}`);
 
   try {
     const networkResponse = await fetch(request);
 
-    console.debug('network response found');
+    sendMessageToClient(`network response found: ${request.url}`);
 
     return networkResponse;
   } catch (error) {
-    console.debug('No network response');
+    sendMessageToClient(`no network response: ${request.url}`);
     return;
   }
 };
@@ -101,14 +102,17 @@ const responseFromNetwork = async (request) => {
 // ** cache strategies - the fun part **
 
 const cacheOnly = async (event) => {
+  sendMessageToClient(`cacheOnly: ${event.request.url}`);
   event.respondWith(await responseFromCache(event.request.url));
 };
 
 const networkOnly = async (event) => {
+  sendMessageToClient(`networkOnly: ${event.request.url}`);
   event.respondWith(await responseFromNetwork(event.request));
 };
 
 const cacheFirstFallingBackToNetwork = async (event) => {
+  sendMessageToClient(`cacheFirstFallingBackToNetwork: ${event.request.url}`);
   event.respondWith(
     (async () => {
       const cachedResponse = await responseFromCache(event.request.url);
@@ -131,6 +135,7 @@ const cacheFirstFallingBackToNetwork = async (event) => {
 };
 
 const networkFirstFallingBackToCache = async (event) => {
+  sendMessageToClient(`networkFirstFallingBackToCache: ${event.request.url}`);
   event.respondWith(
     (async () => {
       try {
@@ -157,6 +162,7 @@ const networkFirstFallingBackToCache = async (event) => {
 };
 
 const staleWhileRevalidate = async (event) => {
+  sendMessageToClient(`staleWhileRevalidate: ${event.request.url}`);
   event.respondWith(
     (async () => {
       const cachedResponse = await responseFromCache(event.request.url);
@@ -184,13 +190,15 @@ const staleWhileRevalidate = async (event) => {
 // ** fetch event using cache strategies - this is where the magic happens **
 
 self.addEventListener('fetch', async (event) => {
-  sendMessageToClient({
-    url: event.request.url,
-    method: event.request.method,
-  });
+  sendMessageToClient(`${event.request.method} ${event.request.url}`);
 
   if (shouldCacheRequest(event.request)) {
+    // ** change here to test different cache strategies **
+    // cacheOnly(event);
+    // networkOnly(event);
     cacheFirstFallingBackToNetwork(event);
+    // networkFirstFallingBackToCache(event);
+    // staleWhileRevalidate(event);
   } else {
     return networkOnly(event);
   }
